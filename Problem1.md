@@ -38,3 +38,6 @@ N = 1000;
 
    plot(x,u,'o',x,y,'*');
    legend('approximate', 'exact');
+git init
+git add
+git commit
