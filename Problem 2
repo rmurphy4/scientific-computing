@@ -1,1 +1,48 @@
 Problem 2 for HW 4AP
+%Rachel Murphy
+%PSID: 1351620
+%Scientific Computing HW 4AP
+%Problem 2
+clc
+clear
+ N = 1000;
+    h = 1/N; %h has 'N' equally spaced intervals
+    l = 10; %lambda
+    
+    a = [];
+    a(1) = -(2 + l * l * h*h); %multiplies row 1 of empty matrix 
+    g = [];
+   
+    f = h^2 .* ones(N,1);
+    f(1) = h^2 + 2*h; %using equation 3.41
+    
+    g(1) = f(1);
+    
+    c = ones(N,1);
+    c(N,1) = 0;
+    c(1,1) = 2;
+    
+    b = ones(N,1);
+    b(1) = 0;
+    
+    a = -(2 + l * l * h*h)*ones(N,1);
+
+    u = ones(N,1);
+     
+    x = 0:h:1-h;
+    
+    for i  = 2:N
+        a(i) = a(i) - ( b(i) / a(i-1) )*c(i-1); 
+        g(i) = f(i) - (b(i)/a(i-1))*g(i-1);
+    end
+    
+    u(N) = f(N) /a(N);
+    
+    for k = 1:(N-1)
+        u(N-k) = (g(N-k) - c(N-k)*u(N-k+1)) / a(N-k);
+    end
+    %Exact value function for comparison
+    y=(((cosh(k*x))/cosh(k))-1)*(1/k^2) - (1/k)*(sinh(k-k*x))/cosh(k); 
+
+    plot(x,u,'o',x,y,'*');
+    legend('approximate', 'exact');
